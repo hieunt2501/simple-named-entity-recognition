@@ -74,7 +74,7 @@ function App() {
       </div>
 
       <div className="input container-fluid">
-        <form className="form mb-3" >
+        <form className="form" >
           <div className="row">
             <div className="col-6 mb-5">
               <div className="row mb-3">
@@ -103,18 +103,19 @@ function App() {
 
             </div>
 
-            <div className="col-6">
+            <div className="col-6 mb-5">
+              <h4 className="name">Entity Labels:</h4>
               {entities.map((entity, i) => (
-                <div>
+                <span className="badge rounded-pill">
                   <input
                     type="checkbox"
                     id={entity.name}
-                    name={entity.name}
+                    name="entity"
                     defaultChecked={entity.isChosen}
                     onChange={(e) => setChecklist(i)}
                   />
                   <label for={entity.name}>{entity.name}</label>
-                </div>
+                </span>
               ))}
             </div>
           </div>

@@ -1,7 +1,8 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
   background-color: #3568B6;
   height: 100vh;
+  font-size: calc(5px + 2vmin);
 }
 
 .App-header {
@@ -14,5 +15,15 @@
 
 .form {
   padding: 30px;
+}
+
+.badge {
+  background-color: red;
+  margin: 5px 10px;
+}
+
+.name {
+  text-align: left;
+  color: white;
 }
 
