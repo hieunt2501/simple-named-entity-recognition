@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const entitiesState = [
   {
@@ -19,6 +19,7 @@ const entitiesState = [
 function App() {
   const [text, setText] = useState("");
   const [entities, setEntities] = useState(entitiesState);
+  const [output, setOutput] = useState("");
   function setChecklist(i) {
     setEntities(entities.map((e,index) => {
       if (i === index) {
@@ -28,19 +29,26 @@ function App() {
       else return e;
     }));
   }
+
+  function submit() {
+    fetch('https://api.npms.io/v2/search?q=react') //change api url here
+        .then(response => response.json())
+        .then(data => setOutput(data.total));
+  }
+
   return (
     <div className="App">
-      <form class="form" >
-        <div class="row">
-          <div class="col-6">
+      <form className="form" >
+        <div className="row">
+          <div className="col-6">
             <textarea
               id="text-area"
               value={text}
               onChange={(e)=>setText(e.value)}
-              class="form-control"
+              className="form-control"
             ></textarea>
           </div>
-          <div class="col-6">
+          <div className="col-6">
             {entities.map((entity, i) => (
               <div>
                 <input
@@ -55,10 +63,11 @@ function App() {
             ))}
           </div>
         </div>
-        <div class="button-row">
-          <button>Submit</button>
+        <div>
+          <input type="button" onClick={submit} value = "Submit" className="form-control" />
         </div>
       </form>
+      <div className="col-5">{output}</div>
     </div>
   );
 }
