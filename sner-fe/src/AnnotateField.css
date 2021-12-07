@@ -1,5 +1,6 @@
 .entities {
      line-height: 2;
+     padding:  20px;
 }
 
 [data-entity] {

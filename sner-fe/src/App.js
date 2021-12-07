@@ -59,9 +59,12 @@ function App() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text: text }),
     };
-    fetch("https://api.npms.io/v2/search?q=react", requestOptions)
+    fetch("http://127.0.0.1:5000/res", requestOptions)
       .then((response) => response.json())
-      .then((data) => setOutput(data));
+      .then((data) => {
+        console.log(data)
+        setOutput(data)}
+        );
   }
 
   function clear() {
@@ -71,7 +74,7 @@ function App() {
     setOutput(emptyOutput)
   }
 
-  // useEffect(submit, []);
+  useEffect(submit, []);
 
   return (
     <div className="App">
@@ -98,15 +101,12 @@ function App() {
                   <button type="button" className="btn btn-danger rounded-0" onClick={clear}>Clear</button>
                 </div>
                 <div className="mb-3">
-                  <button
+                <input
+                    type="button"
                     onClick={submit}
+                    value="Submit"
                     className="btn btn-success rounded-0"
-                  >                
-                    {/* <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill mr-1" viewBox="0 0 16 16">
-                      <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
-                    </svg>   */}
-                    Submit
-                  </button>
+                  /> 
                 </div>
               </div>
 
@@ -135,10 +135,11 @@ function App() {
         </form>
       </div>
 
-      <div className="col-12 output container-fluid p-0">
+      <div className="row w-100 m-0 output-section">
+      <div className="col-8 output container-fluid p-0 align-self-center">
         <AnnotateField data={output} ents={entities}/>
       </div>
-
+      </div>
     </div>
   );
 }

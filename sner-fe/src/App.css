@@ -26,9 +26,11 @@
   text-align: left;
   color: white;
 }
-
-.output {
+.output-section {
   background-color: white;
+}
+.output {
+  /* background-color: white; */
   height: calc(500px + 2vmin)
 }
 
