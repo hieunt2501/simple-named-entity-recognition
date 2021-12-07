@@ -11,16 +11,36 @@ const entitiesState = [
     isChosen: true,
   },
   {
-    name: "Location",
+    name: "Geopgraphical Entity",
     isChosen: true,
   },
+  {
+    name: "Geopolitical Entity",
+    isChosen: true,
+  },
+  {
+    name: "Time indicator",
+    isChosen: true,
+  },
+  {
+    name: "Artifact",
+    isChosen: true,
+  },
+  {
+    name: "Event",
+    isChosen: true,
+  },
+  {
+    name: "Natural Phenomenon",
+    isChosen: true,
+  }
 ];
 
 function App() {
   const [text, setText] = useState("");
   const [entities, setEntities] = useState(entitiesState);
   function setChecklist(i) {
-    setEntities(entities.map((e,index) => {
+    setEntities(entities.map((e, index) => {
       if (i === index) {
         e.isChosen = !e.isChosen;
         return e;
@@ -30,35 +50,41 @@ function App() {
   }
   return (
     <div className="App">
-      <form class="form" >
-        <div class="row">
-          <div class="col-6">
-            <textarea
-              id="text-area"
-              value={text}
-              onChange={(e)=>setText(e.value)}
-              class="form-control"
-            ></textarea>
+      <div className="App-header container-fluid">
+        <form className="form" >
+          <div className="row">
+            <div className="col-6">
+              <textarea
+                id="text-area"
+                value={text}
+                onChange={(e) => setText(e.value)}
+                className="form-control"
+                rows={6}
+              ></textarea>
+            </div>
+            <div className="col-6">
+              {entities.map((entity, i) => (
+                <div>
+                  <input
+                    type="checkbox"
+                    id={entity.name}
+                    name={entity.name}
+                    defaultChecked={entity.isChosen}
+                    onChange={(e) => setChecklist(i)}
+                  />
+                  <label for={entity.name}>{entity.name}</label>
+                </div>
+              ))}
+            </div>
           </div>
-          <div class="col-6">
-            {entities.map((entity, i) => (
-              <div>
-                <input
-                  type="checkbox"
-                  id={entity.name}
-                  name={entity.name}
-                  defaultChecked={entity.isChosen}
-                  onChange={(e) => setChecklist(i)}
-                />
-                <label for={entity.name}>{entity.name}</label>
-              </div>
-            ))}
+          <div className="button-row">
+            <button type="button" className="btn btn-success">Submit</button>
           </div>
-        </div>
-        <div class="button-row">
-          <button>Submit</button>
-        </div>
-      </form>
+        </form>
+      </div>
+      <div className="output">
+
+      </div>
     </div>
   );
 }
