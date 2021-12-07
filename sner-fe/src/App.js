@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const entitiesState = [
   {
@@ -39,6 +39,7 @@ const entitiesState = [
 function App() {
   const [text, setText] = useState("");
   const [entities, setEntities] = useState(entitiesState);
+  const [output, setOutput] = useState("");
   function setChecklist(i) {
     setEntities(entities.map((e, index) => {
       if (i === index) {
@@ -48,6 +49,13 @@ function App() {
       else return e;
     }));
   }
+
+  function submit() {
+    fetch('https://api.npms.io/v2/search?q=react') //change api url here
+        .then(response => response.json())
+        .then(data => setOutput(data.total));
+  }
+
   return (
     <div className="App">
       <div className="App-header container-fluid">
@@ -77,14 +85,16 @@ function App() {
               ))}
             </div>
           </div>
-          <div className="button-row">
-            <button type="button" className="btn btn-success">Submit</button>
-          </div>
+          <div>
+          <input type="button" onClick={submit} value = "Submit" className="form-control" />
+        </div>
         </form>
       </div>
       <div className="output">
-
+        <div className="col-5">{output}</div>
       </div>
+      
+      
     </div>
   );
 }
