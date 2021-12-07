@@ -1,37 +1,38 @@
 import "./App.css";
 import React, { useState } from "react";
-
+import AnnotateField from "./AnnotateField";
+// import Form from "./Form"
 const entitiesState = [
   {
-    name: "Person",
+    name: "per",
     isChosen: true,
   },
   {
-    name: "Organization",
+    name: "org",
     isChosen: true,
   },
   {
-    name: "Geopgraphical Entity",
+    name: "geo",
     isChosen: true,
   },
   {
-    name: "Geopolitical Entity",
+    name: "gpe",
     isChosen: true,
   },
   {
-    name: "Time indicator",
+    name: "tim",
     isChosen: true,
   },
   {
-    name: "Artifact",
+    name: "art",
     isChosen: true,
   },
   {
-    name: "Event",
+    name: "event",
     isChosen: true,
   },
   {
-    name: "Natural Phenomenon",
+    name: "npe",
     isChosen: true,
   }
 ];
@@ -39,7 +40,10 @@ const entitiesState = [
 function App() {
   const [text, setText] = useState("");
   const [entities, setEntities] = useState(entitiesState);
-  const [output, setOutput] = useState("");
+  const [output, setOutput] = useState({
+    "text": "But Google is starting from behind.",
+   "spans": [{"start": 4, "end": 10, "type": "ORG"}],
+});
   function setChecklist(i) {
     setEntities(
       entities.map((e, index) => {
@@ -64,7 +68,7 @@ function App() {
 
   function clear() {
     document.getElementById("input-text-area").value = "";
-    document.getElementById("output-text-area").value = "";
+    setOutput({"text": "", "spans": []})
   }
 
   return (
@@ -122,13 +126,14 @@ function App() {
         </form>
       </div>
 
-      <div className="col-6 output container-fluid">
-        <textarea
+      <div className="col-12 output container-fluid p-0">
+        {/* <textarea
           id="output-text-area"
           className="form-control"
           rows={9}
-        >{output}</textarea>
-
+          cols={20}
+        >{output}</textarea> */}
+        <AnnotateField data={output} ents={entities}/>
       </div>
 
     </div>
