@@ -21,30 +21,36 @@ function App() {
   const [entities, setEntities] = useState(entitiesState);
   const [output, setOutput] = useState("");
   function setChecklist(i) {
-    setEntities(entities.map((e,index) => {
-      if (i === index) {
-        e.isChosen = !e.isChosen;
-        return e;
-      }
-      else return e;
-    }));
+    setEntities(
+      entities.map((e, index) => {
+        if (i === index) {
+          e.isChosen = !e.isChosen;
+          return e;
+        } else return e;
+      })
+    );
   }
 
   function submit() {
-    fetch('https://api.npms.io/v2/search?q=react') //change api url here
-        .then(response => response.json())
-        .then(data => setOutput(data.total));
+    requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: text }),
+    };
+    fetch("https://api.npms.io/v2/search?q=react", requestOptions) //change api url here
+      .then((response) => response.json())
+      .then((data) => setOutput(data.total));
   }
 
   return (
     <div className="App">
-      <form className="form" >
+      <form className="form">
         <div className="row">
           <div className="col-6">
             <textarea
               id="text-area"
               value={text}
-              onChange={(e)=>setText(e.value)}
+              onChange={(e) => setText(e.value)}
               className="form-control"
             ></textarea>
           </div>
@@ -64,7 +70,12 @@ function App() {
           </div>
         </div>
         <div>
-          <input type="button" onClick={submit} value = "Submit" className="form-control" />
+          <input
+            type="button"
+            onClick={submit}
+            value="Submit"
+            className="form-control"
+          />
         </div>
       </form>
       <div className="col-5">{output}</div>
