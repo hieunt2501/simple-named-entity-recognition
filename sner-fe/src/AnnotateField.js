@@ -44,10 +44,13 @@ function AnnotateField({data, ents}) {
   }
   
   useEffect(() => {
-    const entities = ents.reduce(reducer, [])
-    console.log(entities)
-    const newAnnotation = createJSXfromNE(data['text'], data['spans'], entities);
-    setAnnotation(newAnnotation);
+    if (data && Object.keys(data).length !== 0 && ents.length !== 0) {
+      const entities = ents.reduce(reducer, [])
+      console.log(data)
+      const newAnnotation = createJSXfromNE(data['text'], data['spans'], entities);
+      setAnnotation(newAnnotation);
+    }
+    else setAnnotation(<div></div>)
   }, [data, ents])
 
   return (

@@ -87,32 +87,23 @@
      background: rgb(255, 204, 0);
 }
 
-[data-entity][data-entity="nat"] {
-     background: rgba(255, 204, 0, 0.2);
-     border-color: rgb(255, 204, 0);
+[data-entity][data-entity="art"] {
+     background: rgba(153, 153, 153, 0.2);
+     border-color: rgb(153, 153, 153);
 }
 
-[data-entity][data-entity="nat"]::after {
-     background: rgb(255, 204, 0);
+[data-entity][data-entity="art"]::after {
+     background: rgb(153, 153, 153);
 }
 
-/*[data-entity][data-entity="percent"] {*/
-/*     background: rgba(153, 153, 153, 0.2);*/
-/*     border-color: rgb(153, 153, 153);*/
-/*}*/
+[data-entity][data-entity="npe"] {
+     background: rgba(178, 87, 206, 0.2);
+     order-color: rgb(178, 87, 206);
+}
 
-/*[data-entity][data-entity="percent"]::after {*/
-/*     background: rgb(153, 153, 153);*/
-/*}*/
-
-/*[data-entity][data-entity="money"] {*/
-/*     background: rgba(153, 153, 153, 0.2);*/
-/*     border-color: rgb(153, 153, 153);*/
-/*}*/
-
-/*[data-entity][data-entity="money"]::after {*/
-/*     background: rgb(153, 153, 153);*/
-/*}*/
+[data-entity][data-entity="npe"]::after {
+    background: rgb(178, 87, 206);
+}
 
 /*[data-entity][data-entity="quantity"] {*/
 /*     background: rgba(153, 153, 153, 0.2);*/

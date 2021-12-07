@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AnnotateField from "./AnnotateField";
 // import Form from "./Form"
 const entitiesState = [
@@ -28,7 +28,7 @@ const entitiesState = [
     isChosen: true,
   },
   {
-    name: "event",
+    name: "eve",
     isChosen: true,
   },
   {
@@ -36,14 +36,12 @@ const entitiesState = [
     isChosen: true,
   }
 ];
+const textState = "Khoa, Hieu, Khoi, Minh works together in this project."
 
 function App() {
-  const [text, setText] = useState("");
+  const [text, setText] = useState(textState);
   const [entities, setEntities] = useState(entitiesState);
-  const [output, setOutput] = useState({
-    "text": "But Google is starting from behind.",
-   "spans": [{"start": 4, "end": 10, "type": "ORG"}],
-});
+  const [output, setOutput] = useState({});
   function setChecklist(i) {
     setEntities(
       entities.map((e, index) => {
@@ -61,15 +59,19 @@ function App() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text: text }),
     };
-    fetch("https://api.npms.io/v2/search?q=react", requestOptions) //change api url here
+    fetch("https://api.npms.io/v2/search?q=react", requestOptions)
       .then((response) => response.json())
-      .then((data) => setOutput(data.total));
+      .then((data) => setOutput(data));
   }
 
   function clear() {
-    document.getElementById("input-text-area").value = "";
-    setOutput({"text": "", "spans": []})
+    const emptyText = "";
+    const emptyOutput = {}
+    setText(emptyText)
+    setOutput(emptyOutput)
   }
+
+  // useEffect(submit, []);
 
   return (
     <div className="App">
@@ -110,7 +112,7 @@ function App() {
             <div className="col-6 mb-5">
               <h4 className="name">Entity Labels:</h4>
               {entities.map((entity, i) => (
-                <span className="badge rounded-pill">
+                <span className="badge rounded-0">
                   <input
                     type="checkbox"
                     id={entity.name}
@@ -118,7 +120,11 @@ function App() {
                     defaultChecked={entity.isChosen}
                     onChange={(e) => setChecklist(i)}
                   />
-                  <label for={entity.name}>{entity.name}</label>
+                  <label 
+                    className={"entity-button " + ((entity.isChosen)? (entity.name+"-button-activate"): "")}
+                    for={entity.name}>
+                    {entity.name.toUpperCase()}
+                  </label>
                 </span>
               ))}
             </div>
@@ -127,12 +133,6 @@ function App() {
       </div>
 
       <div className="col-12 output container-fluid p-0">
-        {/* <textarea
-          id="output-text-area"
-          className="form-control"
-          rows={9}
-          cols={20}
-        >{output}</textarea> */}
         <AnnotateField data={output} ents={entities}/>
       </div>
 

@@ -18,8 +18,8 @@
 }
 
 .badge {
-  background-color: red;
   margin: 5px 10px;
+  background-color: white;
 }
 
 .name {
@@ -30,4 +30,42 @@
 .output {
   background-color: white;
   height: calc(500px + 2vmin)
+}
+
+.entity-button {
+  color: black;
+  padding: 4px;
+  margin-left: 4px;
+  border-radius: 5px;
+}
+.per-button-activate {
+  background-color: rgb(166, 226, 45);
+}
+
+.geo-button-activate {
+  background-color: rgb(224, 0, 132);
+}
+
+.org-button-activate {
+  background-color: rgb(67, 198, 252);
+}
+
+.gpe-button-activate {
+  background-color: rgb(253, 151, 32);
+}
+
+.tim-button-activate {
+  background-color: rgb(67, 198, 252);
+}
+
+.art-button-activate {
+  background-color: rgb(153, 153, 153);
+}
+
+.npe-button-activate {
+  background-color: rgb(178, 87, 206);
+}
+
+.eve-button-activate {
+  background-color:rgb(255, 204, 0);
 }
