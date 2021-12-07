@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 const entitiesState = [
   {
@@ -41,35 +41,68 @@ function App() {
   const [entities, setEntities] = useState(entitiesState);
   const [output, setOutput] = useState("");
   function setChecklist(i) {
-    setEntities(entities.map((e, index) => {
-      if (i === index) {
-        e.isChosen = !e.isChosen;
-        return e;
-      }
-      else return e;
-    }));
+    setEntities(
+      entities.map((e, index) => {
+        if (i === index) {
+          e.isChosen = !e.isChosen;
+          return e;
+        } else return e;
+      })
+    );
   }
 
   function submit() {
-    fetch('https://api.npms.io/v2/search?q=react') //change api url here
-        .then(response => response.json())
-        .then(data => setOutput(data.total));
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: text }),
+    };
+    fetch("https://api.npms.io/v2/search?q=react", requestOptions) //change api url here
+      .then((response) => response.json())
+      .then((data) => setOutput(data.total));
+  }
+
+  function clear() {
+    document.getElementById("input-text-area").value = "";
+    document.getElementById("output-text-area").value = "";
   }
 
   return (
     <div className="App">
       <div className="App-header container-fluid">
-        <form className="form" >
+        <h1>Simple Named Entity Recognition</h1>
+      </div>
+
+      <div className="input container-fluid">
+        <form className="form mb-3" >
           <div className="row">
-            <div className="col-6">
-              <textarea
-                id="text-area"
-                value={text}
-                onChange={(e) => setText(e.value)}
-                className="form-control"
-                rows={6}
-              ></textarea>
+            <div className="col-6 mb-5">
+              <div className="row mb-3">
+                <textarea
+                  id="input-text-area"
+                  value={text}
+                  onChange={(e) => setText(e.target.value)}
+                  className="form-control"
+                  rows={9}
+                ></textarea>
+              </div>
+
+              <div className="flex-row d-flex justify-content-end">
+                <div className="mb-3">
+                  <button type="button" className="btn btn-danger" onClick={clear}>Clear</button>
+                </div>
+                <div className="mb-3">
+                  <input
+                    type="button"
+                    onClick={submit}
+                    value="Submit"
+                    className="btn btn-success"
+                  />
+                </div>
+              </div>
+
             </div>
+
             <div className="col-6">
               {entities.map((entity, i) => (
                 <div>
@@ -85,16 +118,18 @@ function App() {
               ))}
             </div>
           </div>
-          <div>
-          <input type="button" onClick={submit} value = "Submit" className="form-control" />
-        </div>
         </form>
       </div>
-      <div className="output">
-        <div className="col-5">{output}</div>
+
+      <div className="col-6 output container-fluid">
+        <textarea
+          id="output-text-area"
+          className="form-control"
+          rows={9}
+        >{output}</textarea>
+
       </div>
-      
-      
+
     </div>
   );
 }
