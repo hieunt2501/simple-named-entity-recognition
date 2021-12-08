@@ -34,6 +34,13 @@ def merge_subwords(tokens, tags):
             text = tokens_res[-1] + token[2:]
             tokens_res = tokens_res[:-1]
             tokens_res.append(text)
+        elif tag != 'O' and (token in ['.', '\''] or \
+                (len(token) == 1 and \
+                re.search(r'[a-zA-z]', token) and \
+                tags_res[-1] == tag)):
+            text = tokens_res[-1] + token
+            tokens_res = tokens_res[:-1]
+            tokens_res.append(text)        
         else:
             tokens_res.append(token)
             tags_res.append(tag)

@@ -32,7 +32,9 @@ async def get_ner_entities(request: Request):
     start_time = time.time()
     for sentence in sentences:        
         total_spans += infer_ner(sentence, accumulated_length)
-        accumulated_length += len(sentence) + 1        
+        accumulated_length += len(sentence)
+        if not ('\n' in sentence or '\t' in sentence):
+            accumulated_length += 1
     exec_time = round(time.time() - start_time, 2)
     
     return {'text': text, 'spans': total_spans, 'time': exec_time}
