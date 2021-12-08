@@ -59,12 +59,16 @@ function App() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text: text }),
     };
-    fetch("http://127.0.0.1:5000/res", requestOptions)
+    console.log(text)
+    fetch("http://0.0.0.0:8000/ner/", requestOptions)
       .then((response) => response.json())
       .then((data) => {
         console.log(data)
         setOutput(data)}
-        );
+        )
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   function clear() {
