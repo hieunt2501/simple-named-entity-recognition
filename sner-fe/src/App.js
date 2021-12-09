@@ -54,6 +54,13 @@ function App() {
   }
 
   function submit() {
+    let tmp = text.match(/[^\w.,;:'" \n\t\f#$%@?><;,{}[\]\-_+=!@#$%^&*|'~()“’”\\/`]/)
+    if (tmp != null) {
+      console.log("wrong char")
+      alert("Invalid character: " + tmp)
+      return false
+    }
+
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -78,18 +85,20 @@ function App() {
     setOutput(emptyOutput)
   }
 
+
   useEffect(submit, []);
 
   return (
     <div className="App">
       <div className="App-header container-fluid">
         <h1>Simple Named Entity Recognition</h1>
-      </div>
+      </div> 
 
-      <div className="input container-fluid">
+
+      <div className="input-section container-fluid">
         <form className="form" >
-          <div className="row">
-            <div className="col-6 mb-5">
+          <div className="row d-flex justify-content-between">
+            <div className="col-6">
               <div className="row mb-3">
                 <textarea
                   id="input-text-area"
@@ -102,21 +111,21 @@ function App() {
 
               <div className="flex-row d-flex justify-content-end">
                 <div className="mb-3 mx-3">
-                  <button type="button" className="btn btn-danger rounded-0" onClick={clear}>Clear</button>
+                  <button type="button" className="btn btn-danger btn-lg rounded-0" onClick={clear}>Clear</button>
                 </div>
                 <div className="mb-3">
                 <input
                     type="button"
                     onClick={submit}
                     value="Submit"
-                    className="btn btn-success rounded-0"
+                    className="btn btn-success btn-lg rounded-0"
                   /> 
                 </div>
               </div>
 
             </div>
 
-            <div className="col-6 mb-5">
+            <div className="col-5 mb-5">
               <h4 className="name">Entity Labels:</h4>
               {entities.map((entity, i) => (
                 <span className="badge rounded-0">

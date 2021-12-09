@@ -14,7 +14,7 @@ function AnnotateField({data, ents}) {
         fragments.forEach((fragment, i) => {
           console.log(fragment)
           listOfJSX.push(React.createElement('text', null, fragment));
-          if (fragments.length > 1 && i != fragments.length - 1) listOfJSX.push(React.createElement('br'));
+          if (fragments.length > 1 && i !== fragments.length - 1) listOfJSX.push(React.createElement('br'));
         });
         const ltype = type.toLowerCase();
         if (ents.includes(ltype)) {
