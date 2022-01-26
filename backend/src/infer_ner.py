@@ -11,7 +11,9 @@ def infer_ner(sentence, accumulated_length):
     enc_tag = model.enc_tag
     tokenizer = model.tokenizer
     tokenized_sentence = tokenizer.encode(sentence)
+    print(tokenized_sentence)
     tokens = tokenizer.convert_ids_to_tokens(tokenized_sentence)[1:-1]
+    print(tokens)
     sentence = sentence.lower()
     sentence_split = sentence.split()
 
@@ -29,9 +31,13 @@ def infer_ner(sentence, accumulated_length):
         output_tags = enc_tag.inverse_transform(
                 tag.argmax(2).cpu().numpy().reshape(-1))
     output_tags = output_tags[1:len(tokenized_sentence)-1]
-
+    print('Unprocessed')
+    print(tokens)
+    print(output_tags)
     tokens, output_tags = merge_subwords(tokens, output_tags)
-
+    print('After merge')
+    print(tokens)
+    print(output_tags)
     spans = []
     sentence_start_idx = 0
     for token, tag in zip(tokens, output_tags):        
